@@ -1,0 +1,57 @@
+gather_ticktick_data:
+  description: >
+    Using the TickTick API tool, collect and analyze todo data for the specified date.
+    Gather the following specific data points:
+    - Tasks due on the target date
+    - Completion status of each task
+    - Task priorities and their distribution
+    - Subtasks/checklist items and their completion status
+    - Project-specific task groupings
+    
+    Use the tool's rate-limited API calls and proper error handling to ensure
+    reliable data collection. Process the raw data to calculate:
+    - Task completion rates per project
+    - Priority-based task distribution
+    - Checklist item completion rates
+  expected_output: >
+    A structured collection of TickTick data including:
+    - Project-wise task counts and completion rates
+    - Task priority distribution
+    - Checklist completion statistics
+    - Raw task details for further analysis
+  agent: ticktick_data_gatherer
+
+final_report_assembly:
+  description: >
+    Create a formatted progress report using the gathered TickTick data. The report should include:
+    
+    1. Overview Section:
+    - Total tasks tracked in TickTick
+    - Overall completion rate
+    - Project-wise task distribution
+    
+    2. Task Analysis:
+    - Priority-based task breakdown
+    - Completion rates by priority level
+    - Checklist item completion statistics
+    
+    3. Project-Specific Analysis:
+    - Per-project task counts
+    - Project completion rates
+    - Notable patterns or bottlenecks
+    
+    4. Recommendations:
+    - Task management improvements
+    - Priority adjustment suggestions
+    - Project-specific recommendations
+    
+    Format the report in a clear, readable structure with proper sections and
+    bullet points. Ensure all statistics are accurately calculated from the
+    TickTick API data.
+  expected_output: >
+    A well-structured progress report containing:
+    - Clear statistical analysis of TickTick tasks
+    - Project-wise performance metrics
+    - Actionable insights for improvement
+    - Formatted text without markdown code blocks
+  agent: self.reporting_agent

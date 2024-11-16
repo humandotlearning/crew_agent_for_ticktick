@@ -1,0 +1,114 @@
+{
+  "projectRules": {
+    "apiGuidelines": {
+      "rateLimiting": {
+        "description": "Always implement rate limiting between API calls",
+        "example": "time.sleep(1)  # Basic delay between calls",
+        "retryDelay": "time.sleep(2)  # Longer delay for retries"
+      },
+      "errorHandling": {
+        "pattern": "Try-except with specific error types",
+        "returnValues": "Return None instead of raising exceptions for recoverable errors",
+        "retryLogic": "Implement retry for 500 errors with delays"
+      },
+      "logging": {
+        "levels": {
+          "debug": "Detailed technical information",
+          "info": "General operation success",
+          "warning": "Non-critical issues",
+          "error": "Critical issues"
+        },
+        "format": "Include context in logs: operation, IDs, results"
+      },
+      "payloadHandling": {
+        "minimal": "Only send required fields in updates",
+        "validation": "Validate input data before API calls"
+      }
+    },
+    "methodStructure": {
+      "documentation": {
+        "required": [
+          "Brief description",
+          "Args with types",
+          "Returns with types",
+          "Optional: Raises"
+        ],
+        "format": "Use Google-style docstrings"
+      },
+      "typing": {
+        "required": true,
+        "imports": "from typing import Optional, Dict, List, Union"
+      }
+    },
+    "bestPractices": {
+      "delays": {
+        "beforeApiCalls": 1,
+        "betweenOperations": 1,
+        "forRetries": 2
+      },
+      "debugging": {
+        "required": [
+          "Request URL",
+          "Request Method",
+          "Request Payload",
+          "Response Status",
+          "Response Headers",
+          "Response Body"
+        ]
+      },
+      "responseHandling": {
+        "nullCheck": "Always check for None before accessing response",
+        "pattern": "if response and response.get('field')"
+      }
+    },
+    "codeStructure": {
+      "imports": {
+        "order": [
+          "Standard library imports",
+          "Third-party imports",
+          "Local imports"
+        ],
+        "grouping": "Group related imports together"
+      },
+      "classStructure": {
+        "order": [
+          "Class constants",
+          "Initialize method",
+          "Authentication methods",
+          "Helper methods",
+          "API methods"
+        ]
+      }
+    }
+  },
+  "examplePatterns": {
+    "apiMethod": {
+      "template": [
+        "def method_name(self, param: str) -> Optional[Dict]:",
+        "    \"\"\"Brief description.\"\"\"",
+        "    try:",
+        "        time.sleep(1)",
+        "        response = requests.post(endpoint, headers=self.get_headers(), json=payload)",
+        "        if response.status_code == 500:",
+        "            time.sleep(2)",
+        "            response = requests.post(endpoint, headers=self.get_headers(), json=payload)",
+        "        return response.json() if response.ok else None",
+        "    except Exception as e:",
+        "        logger.error(f\"Error: {e}\")",
+        "        return None"
+      ]
+    },
+    "errorHandling": {
+      "template": [
+        "try:",
+        "    # API call",
+        "    if not response.ok:",
+        "        logger.error(\"Request failed\")",
+        "        return None",
+        "except Exception as e:",
+        "    logger.error(f\"Error in API call: {e}\")",
+        "    return None"
+      ]
+    }
+  }
+} 
